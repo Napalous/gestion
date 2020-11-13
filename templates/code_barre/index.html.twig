@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Code Barre
+{% endblock %}
+{% block javascripts %}
+    <script>
+		JsBarcode(".barcode").init();
+        {# JsBarcode("#barcode", "Hi world!"); #}
+	</script>
+{% endblock %}
+{% block body %}
+	<div class="container">
+		<h4 style="text-align:center;">Code barres générés 
+            <button class="btn btn-success" onclick="printContent('getcode')">
+                <ion-icon name="print-outline"></ion-icon>
+            </button>
+        </h4>        
+		<br/>
+		{# <div class="row" id="getcode">
+        {% for codebarre in codebarres %}                                         
+			<div class="col-md-4">         
+				<svg id="barcode{{ loop.index }}">
+                    <script>
+                        JsBarcode("#barcode{{ loop.index }}", {{ codebarre }})
+                    </script>                     
+                </svg>
+			</div>
+            <br/>
+        {% endfor %}
+		</div>
+        <br/>  #}
+         {# <div class="row" id="getcode">
+        {% for codebarre in codebarres %}            
+			<div class="col-md-4">   
+            {{ loop.index }}      
+				<svg class="barcode" 
+                    jsbarcode-format="upc" 
+                    jsbarcode-value="123456789012"                    
+                    jsbarcode-textmargin="0"
+                    jsbarcode-fontoptions="bold"
+                >
+                </svg>
+			</div>
+            <br/>
+        {% endfor %}
+		</div> #}
+
+
+
+
+        
+        <div id="getcode">
+        <div class="row">                                        
+			<div class="col-md-4">         
+				<svg id="barcode">
+                <script>
+                    JsBarcode("#barcode", {{ code }})
+                </script>                     
+                </svg>
+			</div>
+            <div class="col-md-4">         
+				<svg id="barcode2">
+                <script>
+                    JsBarcode("#barcode2", {{ code2 }})
+                </script>                     
+                </svg>
+			</div> 
+            <div class="col-md-4">         
+				<svg id="barcode3">
+                <script>
+                    JsBarcode("#barcode3", {{ code3 }})
+                </script>                     
+                </svg>
+			</div>           
+		</div>
+        <br/>
+        <div class="row" id="getcode">                                        
+			<div class="col-md-4">         
+				<svg id="barcode4">
+                <script>
+                    JsBarcode("#barcode4", {{ code4 }})
+                </script>                     
+                </svg>
+			</div>
+            <div class="col-md-4">         
+				<svg id="barcode5">
+                <script>
+                    JsBarcode("#barcode5", {{ code5 }})
+                </script>                     
+                </svg>
+			</div> 
+            <div class="col-md-4">         
+				<svg id="barcode6">
+                <script>
+                    JsBarcode("#barcode6", {{ code6 }})
+                </script>                     
+                </svg>
+			</div>           
+		</div>
+        <br/>
+        <div class="row" id="getcode">                                        
+			<div class="col-md-4">         
+				<svg id="barcode7">
+                <script>
+                    JsBarcode("#barcode7", {{ code7 }})
+                </script>                     
+                </svg>
+			</div>
+            <div class="col-md-4">         
+				<svg id="barcode8">
+                <script>
+                    JsBarcode("#barcode8", {{ code8 }})
+                </script>                     
+                </svg>
+			</div> 
+            <div class="col-md-4">         
+				<svg id="barcode9">
+                <script>
+                    JsBarcode("#barcode9", {{ code9 }})
+                </script>                     
+                </svg>
+			</div>           
+		</div>
+        </div>
+        <br/>
+	</div>
+{% endblock %}

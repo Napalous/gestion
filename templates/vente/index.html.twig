@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vente index
+{% endblock %}
+{% block javascripts %}
+	<script src="{{asset('basetemplate/jquery-3.5.1.js')}}"></script>
+	<script src="{{asset('basetemplate/jquery.dataTables.min.js')}}"></script>
+	<script src="{{asset('basetemplate/dataTables.bootstrap4.min.js')}}"></script>
+	<script>
+		$(document).ready(function () {
+$('#example').DataTable();
+});
+	</script>
+{% endblock %}
+{% block body %}
+	<div class="container">
+		<table id="example" class="table table-striped table-bordered" style="width:100%">
+			<thead>
+				<tr>
+					<th>Produit</th>
+					<th>Quantite</th>
+					<th>Prix Unitaire</th>
+					<th>Vendeur</th>
+					<th>Date de vente</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for vente in ventes %}
+					<tr>
+						<td>{{ vente.article.libelle }}</td>
+						<td>{{ vente.quantite }}</td>
+						<td>{{ vente.article.prixUnitaire }}</td>
+						<td>{{ vente.gerant.nom }}
+							{{ vente.gerant.prenom }}</td>
+						<td>{{ vente.venteAt ? vente.venteAt|date('d-m-Y à H:i:s') : '' }}</td>
+						<td>
+							<a href="{{ path('vente_show', {'id': vente.id}) }}">
+								<ion-icon name="eye-outline"></ion-icon>
+							</a>
+							<a href="{{ path('vente_edit', {'id': vente.id}) }}">
+								<ion-icon name="pencil-outline"></ion-icon>
+							</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="6">Aucune donnée</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{# <a href="{{ path('vente_new') }}">Create new</a> #}
+{% endblock %}

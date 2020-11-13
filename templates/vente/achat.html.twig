@@ -1,0 +1,175 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Caisse
+{% endblock %}
+{% block javascripts %}
+	<script>
+		$(document).ready(function () {
+$('#idform').submit(function (e) {
+	e.preventDefault();
+	var code = $('form').serialize();
+	code = code.substring(5)
+	$.ajax({
+		url: 'http://localhost:8000/article/find/code/' + code,
+		type: 'get',
+		dataType: 'json',
+		success: function (data) {
+		$('#body').append(data.html)
+
+
+		var empTab = document.getElementById('body');
+		var rowLength = empTab.rows.length;
+		var total_achat=0;
+		for (i = 0; i < rowLength; i ++) { // gets cells of current row
+			var oCells = empTab.rows.item(i).cells;
+			var cellLength = oCells.length;
+
+			total_achat=parseInt(total_achat)+parseInt(oCells[3].innerHTML);						
+		}
+		document.getElementById("total").innerHTML = total_achat
+		},
+		error: function (error) {
+		alert('Erreur ' + error);
+		}
+	});
+
+$(this.reset())
+})
+})
+	</script>
+	<script>
+		$(document).ready(function () {
+$('#idtable').submit(function (e) {
+e.preventDefault();
+
+})
+})
+	</script>
+	<script>
+function myFunction(val, articleId) {
+var prixu = document.getElementById("prixarticleId" + articleId).innerHTML
+prixu = parseInt(prixu)
+val = parseInt(val)
+var sous = prixu * val
+document.getElementById("soustotalarticleId" + articleId).innerHTML = sous
+var empTab = document.getElementById('body');
+		var rowLength = empTab.rows.length;
+		var total_achat=0;
+		for (i = 0; i < rowLength; i ++) { // gets cells of current row
+			var oCells = empTab.rows.item(i).cells;
+			var cellLength = oCells.length;
+
+					total_achat=parseInt(total_achat)+parseInt(oCells[3].innerHTML);											
+		}
+		document.getElementById("total").innerHTML = total_achat
+}
+function removeRow(oButton) {
+var empTab = document.getElementById('example');
+empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
+var empTab = document.getElementById('body');
+		var rowLength = empTab.rows.length;
+		var total_achat=0;
+		for (i = 0; i < rowLength; i ++) { // gets cells of current row
+			var oCells = empTab.rows.item(i).cells;
+			var cellLength = oCells.length;
+
+			total_achat=parseInt(total_achat)+parseInt(oCells[3].innerHTML);						
+		}
+		document.getElementById("total").innerHTML = total_achat
+}
+
+function SubmitArticle() {
+var empTab = document.getElementById('body');
+//console.log(empTab);
+var rowLength = empTab.rows.length;
+// loops through rows
+for (i = 0; i < rowLength; i ++) { // gets cells of current row
+var oCells = empTab.rows.item(i).cells;
+// gets amount of cells of current row
+var cellLength = oCells.length;
+// console.log(cellLength);
+
+// loops through each cell in current row
+// for(var j = 0; j < cellLength; j++){
+/* get your cell info here */
+var cellVal = oCells.item(2).innerHTML;
+var id = parseInt(cellVal.split("articleId")[1].split("\"")[0]);
+//console.log("id article ", cellVal.split("articleId")[1].split("\"")[0]);
+var qte = parseInt(oCells.item(3).innerHTML / oCells.item(1).innerHTML)
+//console.log("qte ", qte);
+	$.ajax({
+		url: 'http://localhost:8000/vente/caisse/new/' + id + '&' + qte,
+		type: 'get',
+		dataType: 'json',
+		success: function (data) { // console.log(data.articles);
+		console.log(data);
+		Swal.fire({
+		position: 'top-end',
+		icon: 'success',
+		title: 'Achat validé',
+		showConfirmButton: false,
+		timer: 1500
+		})
+		},
+		error: function (error) {
+		alert('Erreur ' + error);
+		}
+	});
+	//window.print();
+	var restorepage=document.body.innerHTML;
+    var printcontent=document.getElementById("body").innerHTML;
+	sessionStorage.setItem('data', printcontent);
+	window.location.href = "http://localhost:8000/facture";
+
+	/*var restorepage=document.body.innerHTML;
+    var printcontent=document.getElementById("example").innerHTML;
+    document.body.innerHTML=printcontent;
+    window.print();
+    document.body.innerHTML=restorepage;
+	location.reload();*/
+}
+}
+	</script>
+{% endblock %}
+{% block body %}
+
+	<div>
+		<br/>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<form method="post" id="idform">
+						<input type="text" name="code" class="form-control" placeholder="Recherche" autofocus required>
+					</form>
+				</div>
+			</div>
+			<div class="col-md-6"></div>
+		</div>
+		<table id="example" class="table table-striped table-bordered" style="width:100%;text-align:center;">
+			<thead>
+				<tr>
+					<th>Libelle</th>
+					<th>Prix Unitaire</th>
+					<th>Quantité</th>
+					<th>Sous total</th>
+					<th>Annuler</th>
+				</tr>
+			</thead>
+			<tbody id="body">
+			</tbody>
+			<tfoot>
+				<tr>
+					<th></th>
+					<th></th>
+					<th>Total</th>
+					<th id="total"></th>
+					<th></th>
+				</tr>
+			</tfoot>
+		</table>
+		<a class="btn btn-success" onclick="SubmitArticle()">Valider achat
+			<ion-icon name="basket-outline"></ion-icon>
+		</a>
+	</div>
+
+{% endblock %}

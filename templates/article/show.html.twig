@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article{% endblock %}
+
+{% block body %}
+    <div class="container">
+    <a class="btn btn-primary" href="{{ path('article_index') }}">Liste des Produits</a>
+    <br/>
+    <h1></h1>
+    
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Libelle</th>
+                <td>{{ article.libelle }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ article.description }}</td>
+            </tr>
+            <tr>
+                <th>Prix Unitaire</th>
+                <td>{{ article.prixUnitaire }}</td>
+            </tr>
+            <tr>
+                <th>Stock</th>
+                <td>{{ article.stock }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+
+    <a class="btn btn-primary" href="{{ path('article_edit', {'id': article.id}) }}"><ion-icon name="pencil-outline"></ion-icon></a>    
+    {{ include('article/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

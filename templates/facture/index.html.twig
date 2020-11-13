@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Print</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{asset('basetemplate/facture.css')}}">
+    <script>
+        var data = sessionStorage.getItem('data');
+        /*var rowLength = data.rows.length;
+        console.log(rowLength);*/
+        //$('#example').append(data)
+        //$('#example').append(data)
+        //document.getElementById("example1").innerHTML = data
+        $(document).ready(function(){
+            $(".example1").prepend(data);            
+        });
+        console.log(data);
+        
+        sessionStorage.removeItem('data');
+        sessionStorage.clear();
+
+
+        var empTab = document.getElementById('example1');
+        console.log(empTab)
+    </script>
+</head>
+<body>
+<section class="back">
+    <div class="container">
+        <h4 style="text-align:center;">Impression Facture 
+            <button class="btn btn-success" onclick="printContent('getcode')">
+                <ion-icon name="print-outline"></ion-icon>
+            </button>
+        </h4>
+        <div class="row" id="getcode">
+            <div class="col-xs-12">
+                <div class="invoice-wrapper">
+                    <div class="invoice-top">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="invoice-top-left">
+                                    {# <h2 th:text="${retrait.transaction.prenomEmetteur + ' '+ retrait.transaction.nomEmetteur}">John Doe</h2>
+                                    <h3 th:text="${'Tel: '+retrait.transaction.telephoneEmetteur}">Type: envoie</h3>
+                                    <h5>Type: Envoie</h5> #}
+                                    <img src="{{ asset('uploads/')}}{{sites.logo}}" style="height:50px"/>
+
+                                    <h4>Date:</h4>
+                                    <h6 th:text="${retrait.dateTretrait}">{{datefacture ? datefacture|date('d-m-Y à H:i:s') : ''}}</h6>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="invoice-top-right">
+                                    <h2 th:text="${retrait.transaction.prenom+ ' ' + retrait.transaction.nom}">{{sites.nom}}</h2>
+                                    <h3 th:text="${retrait.transaction.telephone}">{{sites.adresse}}</h3>
+                                    {# <h5>{{sites.registre}}</h5> #}
+
+                                    <!-- <div class="logo-wrapper">
+                                        <img src="./Acme.png" class="img-responsive pull-right logo" />
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="invoice-bottom">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="task-table-wrapper">
+                                    <table class="table">
+                                         <thead>
+                                        <tr>
+                                            <th>DÉSIGNATION</th>
+                                            <th>PRIX UNITAIRE</th>
+                                            <th>QUANTITÉ</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="example1">
+                                        {# <tr>
+                                            <td>
+<!--                                                <h3>Operation de retrait:</h3>-->
+                                                <h5>03</h5>
+                                            </td>
+                                            <td><h4 th:text="${retrait.dateTretrait}">₹50</h4></td>
+                                            <td><h4 th:text="${retrait.transaction.montant}">50</h4></td>
+                                        </tr> #}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-md-12">
+                                <div class="invoice-bottom-total">
+                                    <div class="col-sm-8 no-padding">
+                                        <div class="sub-total-box">
+                                            {# <h6>Taxe</h6>
+                                            <h5>5%</h5> #}
+                                        </div>
+                                        <div class="add-box">
+                                            {# <h3>soit</h3> #}
+                                        </div>
+                                        <div class="tax-box">
+<!--                                            <h6>TAXES</h6>-->
+                                            {# <h5 th:text="${gain + ' FCFA'}">5%</h5> #}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4 no-padding">
+                                        <div class="total-box">
+                                            <h6>TOTAL</h6>
+                                            <h3 th:text="${montant + ' FCFA'}">₹55,866</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-xs-12">
+                                <hr class="divider">
+                            </div>
+                            <div class="col-sm-4">
+                                <h6 class="text-left">{{sites.nom}}</h6>
+                            </div>
+                            <div class="col-sm-4">
+                                <h6 class="text-center">{{sites.email}}</h6>
+                            </div>
+                            <div class="col-sm-4">
+                                <h6 class="text-right">{{sites.tel}}</h6>
+                            </div>
+                        </div>
+                        <div class="bottom-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- jquery slim version 3.2.1 minified -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>   
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        		<script src="https://cdnjs.cloudflare.com/ajax/libs/print-js/1.3.0/print.js"></script>	
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha512-bnIvzh6FU75ZKxp0GXLH9bewza/OIw6dLVh9ICg0gogclmYGguQJWl8U30WpbsGTqbIiAwxTsbe76DErLq5EDQ==" crossorigin="anonymous"></script>
+        <script>
+            function printContent(el)
+            {
+                var restorepage=document.body.innerHTML;
+                var printcontent=document.getElementById(el).innerHTML;
+                
+                document.body.innerHTML=printcontent;
+                window.print();
+                document.body.innerHTML=restorepage;
+                //console.log(document.getElementById("example1").innerHTML);
+				window.location.href = "http://localhost:8000/vente/caisse";
+            }
+        </script>
+
+</body>
+</html>
