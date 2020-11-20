@@ -14,15 +14,22 @@
     <link rel="stylesheet" type="text/css" href="{{asset('basetemplate/facture.css')}}">
     <script>
         var data = sessionStorage.getItem('data');
+        //console.log()
         /*var rowLength = data.rows.length;
         console.log(rowLength);*/
         //$('#example').append(data)
         //$('#example').append(data)
         //document.getElementById("example1").innerHTML = data
+        const regex = "<input";
+         const regex1 = "/>";
+         console.log(data);
+        console.log(data.indexOf(regex));
+        console.log(data.indexOf(regex1));
+
         $(document).ready(function(){
             $(".example1").prepend(data);            
         });
-        console.log(data);
+        
         
         sessionStorage.removeItem('data');
         sessionStorage.clear();

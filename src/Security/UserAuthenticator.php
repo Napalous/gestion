@@ -71,7 +71,7 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException("tel n'existe pas.");
+            throw new CustomUserMessageAuthenticationException("Téléphone incorrect.");
         }
 
         return $user;

@@ -52,6 +52,11 @@ class Site
      */
     private $registre;
 
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $ident;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +142,18 @@ class Site
     public function setRegistre(string $registre): self
     {
         $this->registre = $registre;
+
+        return $this;
+    }
+
+    public function getIdent(): ?string
+    {
+        return $this->ident;
+    }
+
+    public function setIdent(string $ident): self
+    {
+        $this->ident = $ident;
 
         return $this;
     }

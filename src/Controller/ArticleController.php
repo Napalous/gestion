@@ -97,7 +97,7 @@ class ArticleController extends AbstractController
         $html .= "<tr>";
         $html .= '<td>'.$article->getLibelle().'</td>';
         $html .= '<td id="prixarticleId'.$article->getId().'">'.$article->getPrixUnitaire().'</td>';
-        $html .= '<td><input type="number" name="qte" min="1" value="1" max="'.$article->getStock().'" class="form-control" id="articleId'.$article->getId().'" placeholder="Quantite" required onchange="myFunction(this.value, '.$article->getId().')"></td>';
+        $html .= '<td><input type="number" name="qte" min="1" value="1" max="'.$article->getStock().'" class="form-control" id="articleId'.$article->getId().'" placeholder="Quantite" required onchange="myFunction(this.value, '.$article->getId().')"/></td>';
         $html .= '<td id="soustotalarticleId'.$article->getId().'">'.$article->getPrixUnitaire().'</td>';
         $html .= '<td><a type="button" class="btn btn-danger" href="#" onclick=removeRow(this)>X</a></td>';
         $html .= "</tr>";

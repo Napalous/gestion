@@ -23,7 +23,6 @@ $('#idform').submit(function (e) {
 		for (i = 0; i < rowLength; i ++) { // gets cells of current row
 			var oCells = empTab.rows.item(i).cells;
 			var cellLength = oCells.length;
-
 			total_achat=parseInt(total_achat)+parseInt(oCells[3].innerHTML);						
 		}
 		document.getElementById("total").innerHTML = total_achat

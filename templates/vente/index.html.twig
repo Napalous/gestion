@@ -35,12 +35,12 @@ $('#example').DataTable();
 							{{ vente.gerant.prenom }}</td>
 						<td>{{ vente.venteAt ? vente.venteAt|date('d-m-Y à H:i:s') : '' }}</td>
 						<td>
-							<a href="{{ path('vente_show', {'id': vente.id}) }}">
+							<a class="btn btn-primary" href="{{ path('vente_show', {'id': vente.id}) }}">
 								<ion-icon name="eye-outline"></ion-icon>
 							</a>
-							<a href="{{ path('vente_edit', {'id': vente.id}) }}">
+							{# <a href="{{ path('vente_edit', {'id': vente.id}) }}">
 								<ion-icon name="pencil-outline"></ion-icon>
-							</a>
+							</a> #}
 						</td>
 					</tr>
 				{% else %}
